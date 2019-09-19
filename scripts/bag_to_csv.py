@@ -7,12 +7,12 @@ from std_msgs.msg import Float64
 import csv
 
 dynamics_data = open('dynamics_data.csv', 'w')
-field_names = ['x','y','theta','vel','accel','steer','omega']
+field_names = ['x','y','theta','vel','accel','steer','omega', 'break']
 data_writer = csv.DictWriter(dynamics_data,field_names)
 data_writer.writeheader()
 def callback(imu_msg, gps_msg, accel_msg, break_msg, steer_msg, vel_msg):
     print('got both messages\n')
-    data_writer.writerow({'x': gps_msg.LLA.x, 'y': gps_msg.LLA.y, 'theta': 0, 'vel': vel_msg.vehicle_speed, 'accel': accel_msg.command, 'steer': steer_msg.command, 'omega': imu_msg.Accel.z})
+    data_writer.writerow({'x': gps_msg.LLA.x, 'y': gps_msg.LLA.y, 'theta': 0, 'vel': vel_msg.vehicle_speed, 'accel': accel_msg.command, 'steer': steer_msg.command, 'omega': imu_msg.Accel.z, 'break':break_msg.command})
 
 
 imu_sub = message_filters.Subscriber('/vectornav/imu', sensors)
