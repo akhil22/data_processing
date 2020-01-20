@@ -6,9 +6,9 @@ import csv
 class DataLog:
 	def __init__(self):
 		rospy.Subscriber('/warthog_velocity_controller/odom', Odometry, self.odomcb)
-		rospy.Subscriber('/odom_cmd', Odometry, self.cmdcb)
-		self.odom_data_file = open('warthog_odom.csv', 'w')
-                self.cmd_data_file = open('warthog_cmd.csv', 'w')
+		rospy.Subscriber('/gcartodom', Odometry, self.cmdcb)
+		self.odom_data_file = open('warthog_odom_run.csv', 'w')
+                self.cmd_data_file = open('warthog_cmd_run.csv', 'w')
 		self.field_odom = ['v','w','t']
 		self.field_cmd = ['v_c','w_c','t_c']
 		self.odom_writer = csv.DictWriter(self.odom_data_file, self.field_odom)
